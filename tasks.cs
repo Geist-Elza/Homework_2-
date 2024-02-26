@@ -1,90 +1,85 @@
-4-ый семинар:
-Задача 1: Бесконечный запрос чисел до ввода ‘q’ или числа с четнойсуммой цифр
-using System;
-class Program
+// Задача 1: Создание строки из двумерного массива символов
+public class Task1
 {
-static void Main()
-{
-while (true) // Бесконечный цикл
-{
-Console.Write("Введите число или 'q' для выхода: ");
-string input = Console.ReadLine(); // Чтение строки ввода пользователя
-if (input == "q") // Проверка на ввод 'q' для выхода
-{
-break;
+    public static void Main(string[] args)
+    {
+        // Инициализация двумерного массива символов
+        char[,] charArray = new char[,] { { 'a', 'b' }, { 'c', 'd' } };
+        // Вызов метода для создания строки из 2D массива
+        string result = CreateStringFrom2DArray(charArray);
+        // Вывод результата
+        Console.WriteLine(result);
+    }
+    // Метод для создания строки из двумерного массива символов
+    public static string CreateStringFrom2DArray(char[,] array)
+    {
+        string result = "";
+        // Цикл по каждому элементу в двумерном массиве
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                // Добавление каждого символа в результирующую строку
+                result += array[i, j];
+            }
+        }
+        return result;
+    }
 }
-int number;
-if (int.TryParse(input, out number)) // Проверка, является ли ввод числом{
-int sum = 0;
-while (number > 0) // Вычисление суммы цифр числа
+
+// Задача 2: Замена заглавных букв на строчные в строке
+public class Task2
 {
-sum += number % 10; // Добавление последней цифры к сумме
-number /= 10; // Удаление последней цифры из числа
+    public static void Main(string[] args)
+    {
+        // Входная строка со смешанными буквами обоих регистровstring input = "aBcD1ef!-";
+        // Преобразование всех заглавных букв в строчные
+        string result = input.ToLower();
+        // Вывод результата
+        Console.WriteLine(result);
+    }
 }
-if (sum % 2 == 0) // Проверка, является ли сумма цифр четной
+
+//  Задача 3: Проверка строки на палиндром
+public class Task3
 {
-Console.WriteLine("[STOP]");
-break;
-}
-}
-else // Если ввод не является числом и не 'q', повторить запрос
+    public static void Main(string[] args)
+    {
+        // Входная строка для проверки
+        string input = "шалаш";
+        // Вызов метода для проверки, является ли строка палиндромомbool isPalindrome = IsPalindrome(input);
+        // Вывод результата
+        Console.WriteLine(isPalindrome ? "Да" : "Нет");
+    }
+// Метод для проверки, является ли строка палиндромомpublic static bool IsPalindrome(string str)
 {
-Console.WriteLine("Некорректный ввод. Пожалуйста, введите целое числоили 'q'.");
-}
-}
-}
-}
-Задача 2: Подсчет количества четных чисел в массиве
-using System;
-class Program
-{
-static void Main()
-{
-int[] numbers = new int[10]; // Массив для хранения случайных чисел
-Random random = new Random(); // Генератор случайных чисел
-int evenCount = 0; // Счетчик четных чисел
-// Заполнение массива случайными трехзначными числами
-for (int i = 0; i < numbers.Length; i++)
-{
-numbers[i] = random.Next(100, 1000); // Случайное число от 100 до 999
-Console.Write(numbers[i] + " "); // Вывод сгенерированного числа
-// Проверка на четность и увеличение счетчика
-if (numbers[i] % 2 == 0)
-{
-evenCount++;
-}
-}
-// Вывод количества четных чисел в массиве
-Console.WriteLine($"\nКоличество четных чисел в массиве: {evenCount}");
-}
-}
-Задача 3: Реверсирование одномерного массива
-using System;
-class Program
-{
-static void Main()
-{
-int[] numbers = {1, 3, 5, 6, 7, 8}; // Исходный массив
-int temp;
-// Вывод исходного массива
-Console.Write("Исходный массив: ");
-foreach (int number in numbers)
-{
-Console.Write(number + " ");
-}
-// Реверсирование массива
-for (int i = 0; i < numbers.Length / 2; i++)
-{
-// Меняем местами элементы
-temp = numbers[i];
-numbers[i] = numbers[numbers.Length - 1 - i];
-numbers[numbers.Length - 1 - i] = temp;
-}
-// Вывод измененного массива
-Console.Write("\nПеревернутый массив: ");
-foreach (int number in numbers)
-{
-Console.Write(number + " ");
+// Нормализация строки путем удаления не буквенно-цифровыхсимволов и приведения к нижнему регистру
+string normalized = new
+string(str.Where(char.IsLetterOrDigit).ToArray()).ToLower();
+// Сравнение строки с ее перевернутым вариантом
+return normalized.SequenceEqual(normalized.Reverse());
 }
 }
+
+// Задача 4 (необязательная): Обратный порядок слов в строкеpublic class Task4
+{
+    public static void Main(string[] args)
+    {
+        // Входная строка со словами, разделенными пробелами
+        string input = "Hello my world";
+        // Вызов метода для обращения порядка слов в строке
+        string result = ReverseWords(input);
+        // Вывод результата
+        Console.WriteLine(result);
+    }
+    // Метод для обращения порядка слов в строке
+    public static string ReverseWords(string str)
+    {
+        // Разделение строки на слова
+        string[] words = str.Split(' ');
+        // Обращение порядка слов
+        Array.Reverse(words);
+        // Соединение слов обратно в строку с пробелами
+        return string.Join(" ", words);
+    }
 }
